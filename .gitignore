@@ -1,3 +1,7 @@
-/build/*.o
+# Все объектные файлы в каталоге build
+/build/**/*.o
+
+# Все bin файлы в каталоге bin/boot
 /bin/boot/*.bin
+
 /.vs
