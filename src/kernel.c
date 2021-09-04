@@ -1,7 +1,13 @@
 #include "modules/output/output.h"
+#include "modules/interrupts/interrupts.h"
 
 void kmain()
 {
     clear_screen();
-    kprint("Welcome\nHello wolasdadrd!\rVasya");
+    print("Welcome\nHello wolasdadrd!\nVasya\n");
+
+    init_interrupts();
+    enable_keyboard_interrupts();
+
+    while(1);
 }

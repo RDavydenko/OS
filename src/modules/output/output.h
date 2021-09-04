@@ -6,7 +6,8 @@
 #define VGA_COLUMNS 80
 #define VGA_SCREEN_SIZE VGA_LINES * VGA_COLUMNS
 
-void kprint(const char* str);
+void print(const char* str);
+void print_char(char ch);
 void clear_screen();
 
 #endif //__OUTPUT_H__

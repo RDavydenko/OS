@@ -25,13 +25,39 @@ stack_top:
 .global _start
 .type _start, @function
 _start:
-	movl $stack_top, %esp # Устанавливаем указатель стека
-	call kmain # Вызываем функцию kmain из kernel.c
-	cli # отключение прерываний
-	hlt # завершение работы
+	movl   $stack_top, %esp # Устанавливаем указатель стека
+	call   kmain # Вызываем функцию kmain из kernel.c
+	cli    # отключение прерываний
+	hlt    # завершение работы
 .Lhang:
-	jmp .Lhang
+	jmp   .Lhang
 
 # Set the size of the _start symbol to the current location '.' minus its start.
 # This is useful when debugging or when you implement call tracing.
 .size _start, . - _start
+
+
+
+# =================== funtions =====================:
+
+.global _read_port
+.global _write_port
+.global _init_interrupts
+
+_read_port:      		# C: int _read_port(int port_number)
+	movl  4(%esp), %edx
+	in    %dx, %al
+	ret
+
+_write_port:    			# C: void _write_port(int port_number, int value)
+	movl   4(%esp), %edx
+	movb   8(%esp), %al
+	out    %al, %dx
+	ret
+
+_init_interrupts: 		# C: void _init_interrupts(long unsigned int *idt_ptr)
+	movl   4(%esp), %edx
+	lidt   (%edx)
+	sti 				# turn on interrupts
+	ret
+
