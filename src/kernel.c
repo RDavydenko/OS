@@ -3,5 +3,5 @@
 void kmain()
 {
     clear_screen();
-    kprint("Hello wolrd!");
+    kprint("Welcome\nHello wolasdadrd!\rVasya");
 }

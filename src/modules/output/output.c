@@ -7,11 +7,21 @@ char* vidptr = (char*)0xb8000; // Указатель на начало виде�
 // Вывод строки на экран до '\0'
 void kprint(const char* str)
 {
-    unsigned int i = 0;
-    while (str[i] != '\0')
+    for (unsigned int i = 0; str[i] != '\0'; i++)
     {
-        vidptr[cursor_location++] = str[i++];
-        vidptr[cursor_location++] = current_style; // foreground
+        if (str[i] == '\n')
+        {
+            cursor_location = ((cursor_location / (VGA_COLUMNS * 2)) + 1) * (VGA_COLUMNS * 2);
+        }
+        else if (str[i] == '\r')
+        {
+            cursor_location -= cursor_location % (VGA_COLUMNS * 2);
+        }
+        else 
+        {
+            vidptr[cursor_location++] = str[i];
+            vidptr[cursor_location++] = current_style; // foreground
+        }
     }
 }
 
