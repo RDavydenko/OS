@@ -12,10 +12,6 @@ void kmain()
 
     print("Welcome\nHello wolasdadrd!\nVasya\n");
 
-    // char* line = get_line();
-    // print("Your line: ");
-    // print(line);
-
     // Получение любой клавиши
     print("Your keycode: ");
     int keycode = get_keycode();
