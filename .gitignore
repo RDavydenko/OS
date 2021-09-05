@@ -5,3 +5,4 @@
 /bin/boot/*.bin
 
 /.vs
+/.vscode

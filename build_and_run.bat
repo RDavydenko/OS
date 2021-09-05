@@ -16,20 +16,22 @@ i686-elf-gcc -c src/modules/output/output.c -o build/modules/output/output.o -st
 :: Interrupts
 i686-elf-gcc -c src/modules/interrupts/interrupts.c -o build/modules/interrupts/interrupts.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 :: Keyboard
-i686-elf-as src/modules/keyboard/keyboard.asm -o build/modules/keyboard/keyboard.asm.o
 i686-elf-gcc -c src/modules/keyboard/keyboard.c -o build/modules/keyboard/keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-
+:: Convert
+i686-elf-gcc -c src/modules/convert/convert.c -o build/modules/convert/convert.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+:: Cursor
+i686-elf-gcc -c src/modules/cursor/cursor.c -o build/modules/cursor/cursor.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+:: Utils
+i686-elf-as src/modules/utils/utils.asm -o build/modules/utils/utils.asm.o
 
 :: Линковка
-cd build
-i686-elf-gcc -T build/linker.ld -o bin/boot/os.bin -ffreestanding -O2 -nostdlib build/kernel.o build/kernel.asm.o build/modules/output/output.o build/modules/interrupts/interrupts.o build/modules/keyboard/keyboard.o build/modules/keyboard/keyboard.asm.o -lgcc
-cd ..
+i686-elf-gcc -T build/linker.ld -o bin/boot/os.bin -ffreestanding -O2 -nostdlib build/kernel.o build/kernel.asm.o build/modules/output/output.o build/modules/interrupts/interrupts.o build/modules/keyboard/keyboard.o build/modules/input/input.o build/modules/input/input.asm.o build/modules/convert/convert.o build/modules/cursor/cursor.o build/modules/utils/utils.asm.o -lgcc
 
-@REM If you can get grub-mkrescue:
+:: If you can get grub-mkrescue:
 
-REM qemu-system-i386 -cdrom iso/os.iso
+:: qemu-system-i386 -cdrom iso/os.iso
 
-@REM Else, boot directly:
+:: Else, boot directly:
 
 echo "Build Succeed"
 

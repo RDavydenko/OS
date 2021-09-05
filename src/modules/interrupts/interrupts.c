@@ -1,21 +1,27 @@
 #include "interrupts.h"
 
-extern void _keyboard_handler();
 extern int _read_port(int port_number);
 extern void _write_port(int port_number, int value);
 extern void _init_interrupts(long unsigned int *idt_ptr);
 
+typedef struct idt_descr {
+	unsigned short int offset_lowerbits;
+	unsigned short int selector;
+	unsigned char zero;
+	unsigned char type_attr;
+	unsigned short int offset_higherbits;
+} IDT_Descriptor;
+
 IDT_Descriptor IDT[256];
 
-void init_interrupts()
+void init_interrupts(unsigned long handler)
 {
 	/* setting up interrupts to work with keyboard */
-	unsigned long keyboard_address = (unsigned long)_keyboard_handler;
-	IDT[0x21].offset_lowerbits = keyboard_address & 0xffff;
+	IDT[0x21].offset_lowerbits = handler & 0xffff;
 	IDT[0x21].selector = 0x08;
 	IDT[0x21].zero = 0;
 	IDT[0x21].type_attr = INTERRUPT_GATE;
-	IDT[0x21].offset_higherbits = (keyboard_address & 0xffff0000) >> 16;
+	IDT[0x21].offset_higherbits = (handler & 0xffff0000) >> 16;
 
 	_write_port(0x20, 0x11);
 	_write_port(0xA0, 0x11);
