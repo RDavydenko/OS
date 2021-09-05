@@ -17,6 +17,9 @@ i686-elf-gcc -c src/modules/output/output.c -o build/modules/output/output.o -st
 i686-elf-gcc -c src/modules/interrupts/interrupts.c -o build/modules/interrupts/interrupts.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 :: Keyboard
 i686-elf-gcc -c src/modules/keyboard/keyboard.c -o build/modules/keyboard/keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+:: Input
+i686-elf-as src/modules/input/input.asm -o build/modules/input/input.asm.o
+i686-elf-gcc -c src/modules/input/input.c -o build/modules/input/input.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 :: Convert
 i686-elf-gcc -c src/modules/convert/convert.c -o build/modules/convert/convert.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 :: Cursor

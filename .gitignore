@@ -2,7 +2,7 @@
 /build/**/*.o
 
 # Все bin файлы в каталоге bin/boot
-/bin/boot/*.bin
+# /bin/boot/*.bin
 
 /.vs
 /.vscode
